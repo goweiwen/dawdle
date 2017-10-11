@@ -1,4 +1,12 @@
 {
+  "name": "Dawdle",
+  "description": "An idle game for Telegram.",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
+  "repository": "https://github.com/goweiwen/dawdle",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon src/main.js --exec babel-node",
     "build": "babel src -d dist",
