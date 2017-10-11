@@ -1,6 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api'
 import Koa from 'koa'
 import Router from 'koa-router'
+import serve from 'koa-static'
 import body from 'koa-body'
 import views from 'koa-views'
 import path from 'path'
@@ -21,6 +22,7 @@ bot.on('inline_query', inlineQuery =>
 )
 
 bot.on('callback_query', callbackQuery => {
+  console.log(`${url}/${callbackQuery.from.id}/${callbackQuery.inline_message_id}`)
   bot.answerCallbackQuery({
     callback_query_id: callbackQuery.id,
     text: GAME_NAME,
@@ -42,6 +44,7 @@ const app = new Koa()
 const router = new Router()
 
 app.use(body())
+app.use(serve(path.join(__dirname, 'static')))
 app.use(views(path.join(__dirname, 'views')))
 
 // Serve game page

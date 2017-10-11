@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/main.js --exec babel-node",
-    "build": "babel src -d dist && cp -r src/views dist/views",
+    "build": "babel src -d dist && pug src/views && cp -r src/views src/static dist",
     "serve": "node dist/main.js"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
     "koa-views": "^6.1.1",
     "node-telegram-bot-api": "^0.28.0"
   },

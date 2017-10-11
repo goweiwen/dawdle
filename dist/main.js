@@ -28,6 +28,10 @@ var _koaRouter = require('koa-router');
 
 var _koaRouter2 = _interopRequireDefault(_koaRouter);
 
+var _koaStatic = require('koa-static');
+
+var _koaStatic2 = _interopRequireDefault(_koaStatic);
+
 var _koaBody = require('koa-body');
 
 var _koaBody2 = _interopRequireDefault(_koaBody);
@@ -58,6 +62,7 @@ bot.on('inline_query', function (inlineQuery) {
 });
 
 bot.on('callback_query', function (callbackQuery) {
+  console.log(url + '/' + callbackQuery.from.id + '/' + callbackQuery.inline_message_id);
   bot.answerCallbackQuery({
     callback_query_id: callbackQuery.id,
     text: GAME_NAME,
@@ -81,6 +86,7 @@ var app = new _koa2.default();
 var router = new _koaRouter2.default();
 
 app.use((0, _koaBody2.default)());
+app.use((0, _koaStatic2.default)(_path2.default.join(__dirname, 'static')));
 app.use((0, _koaViews2.default)(_path2.default.join(__dirname, 'views')));
 
 // Serve game page

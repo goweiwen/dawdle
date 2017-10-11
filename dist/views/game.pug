@@ -9,25 +9,31 @@ html
     meta(name="keywords" content="telegram,game")
 
   body
-    h3 Dawdle
-    h1#score
+    img#duck(src="/duck.png")
+    h2#score -
     script.
-      var score = 0
+      var score = 0;
+      var scoreDom = document.getElementById('score');
       fetch(window.location.href + '/score')
         .then(function(res) { return res.text() })
         .then(function(text) {
-          score = text
+          document.getElementById('duck').classList.add('spin');
+          scoreDom.innerHTML = score = parseInt(text);
           setInterval(function() {
-            score++
-            document.getElementById('score').innerHTML = score
+            scoreDom.innerHTML = ++score;
             fetch(window.location.href, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ score: score })
             });
-          }, 1000);
+          }, 3000);
         })
     script(src="https://telegram.org/js/games.js")
     style.
       body { font-family: Menlo, Consolas, monospace; background: #fafafa; color: #404040; }
-      #score { text-align: center; font-size: 20vw; }
+      #duck { display: block; margin: auto }
+      .spin { -webkit-animation:spin 3s linear infinite; -moz-animation:spin 3s linear infinite; animation:spin 3s linear infinite; }
+      #score { text-align: center; font-size: 20vw; margin: 0.2em 0; }
+      @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+      @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+      @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
