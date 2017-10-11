@@ -1,5 +1,21 @@
 'use strict';
 
+var _getIterator2 = require('babel-runtime/core-js/get-iterator');
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 var _nodeTelegramBotApi = require('node-telegram-bot-api');
 
 var _nodeTelegramBotApi2 = _interopRequireDefault(_nodeTelegramBotApi);
@@ -20,17 +36,11 @@ var _koaViews = require('koa-views');
 
 var _koaViews2 = _interopRequireDefault(_koaViews);
 
-var _ngrok = require('ngrok');
-
-var _ngrok2 = _interopRequireDefault(_ngrok);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var TOKEN = process.env.TELEGRAM_TOKEN;
 var GAME_NAME = process.env.TELEGRAM_GAMENAME;
@@ -65,10 +75,14 @@ bot.on('callback_query', function (callbackQuery) {
 });
 
 if (url == null) {
-  _ngrok2.default.connect(PORT, function onConnect(err, u) {
-    if (err) throw err;
-    url = u;
-    console.log('Game tunneled at ' + url);
+  _promise2.default.resolve().then(function () {
+    return require('ngrok');
+  }).then(function (ngrok) {
+    return ngrok.connect(PORT, function onConnect(err, u) {
+      if (err) throw err;
+      url = u;
+      console.log('Game tunneled at ' + url);
+    });
   });
 }
 
@@ -80,8 +94,8 @@ app.use((0, _koaViews2.default)(_path2.default.join(__dirname, 'views')));
 
 // Serve game page
 router.get('/:userId/:inlineMessageId', function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(ctx) {
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(ctx) {
+    return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -103,10 +117,10 @@ router.get('/:userId/:inlineMessageId', function () {
 
 // Fetch highscore
 router.get('/:userId/:inlineMessageId/score', function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(ctx) {
+  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(ctx) {
     var _ctx$params, userId, inlineMessageId, highscores, score, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, highscore;
 
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -122,7 +136,7 @@ router.get('/:userId/:inlineMessageId/score', function () {
             _iteratorError = undefined;
             _context2.prev = 8;
 
-            for (_iterator = highscores[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            for (_iterator = (0, _getIterator3.default)(highscores); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
               highscore = _step.value;
 
               if (highscore.user.id === parseInt(userId)) {
@@ -181,10 +195,10 @@ router.get('/:userId/:inlineMessageId/score', function () {
 
 // Submit highscore
 router.post('/:userId/:inlineMessageId', function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(ctx) {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(ctx) {
     var _ctx$params2, userId, inlineMessageId, score;
 
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:

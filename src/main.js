@@ -3,7 +3,6 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import body from 'koa-body'
 import views from 'koa-views'
-import ngrok from 'ngrok'
 import path from 'path'
 
 const TOKEN = process.env.TELEGRAM_TOKEN
@@ -35,11 +34,13 @@ bot.on('callback_query', callbackQuery => {
 })
 
 if (url == null) {
-  ngrok.connect(PORT, function onConnect (err, u) {
-    if (err) throw err
-    url = u
-    console.log(`Game tunneled at ${url}`)
-  })
+  import('ngrok').then(ngrok =>
+    ngrok.connect(PORT, function onConnect (err, u) {
+      if (err) throw err
+      url = u
+      console.log(`Game tunneled at ${url}`)
+    })
+  )
 }
 
 const app = new Koa()
