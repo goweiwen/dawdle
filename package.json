@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/main.js --exec babel-node",
-    "build": "babel src -d dist",
+    "build": "babel src -d dist && cp -r src/views dist/views",
     "serve": "node dist/main.js"
   },
   "dependencies": {
@@ -18,8 +18,7 @@
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
     "koa-views": "^6.1.1",
-    "node-telegram-bot-api": "^0.28.0",
-    "pug": "^2.0.0-rc.4"
+    "node-telegram-bot-api": "^0.28.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -34,6 +33,7 @@
     "eslint-friendly-formatter": "^3.0.0",
     "ngrok": "^2.2.22",
     "nodemon": "^1.12.1",
-    "prettier": "^1.7.4"
+    "prettier": "^1.7.4",
+    "pug": "^2.0.0-rc.4"
   }
 }

@@ -66,7 +66,6 @@ bot.on('inline_query', function (inlineQuery) {
 });
 
 bot.on('callback_query', function (callbackQuery) {
-  console.log(url + '/' + callbackQuery.from.id + '/' + callbackQuery.inline_message_id);
   bot.answerCallbackQuery({
     callback_query_id: callbackQuery.id,
     text: GAME_NAME,
@@ -100,7 +99,7 @@ router.get('/:userId/:inlineMessageId', function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return ctx.render('game.pug');
+            return ctx.render('game');
 
           case 2:
           case 'end':

@@ -25,7 +25,6 @@ bot.on('inline_query', inlineQuery =>
 )
 
 bot.on('callback_query', callbackQuery => {
-  console.log(`${url}/${callbackQuery.from.id}/${callbackQuery.inline_message_id}`)
   bot.answerCallbackQuery({
     callback_query_id: callbackQuery.id,
     text: GAME_NAME,
@@ -50,7 +49,7 @@ app.use(body())
 app.use(views(path.join(__dirname, 'views')))
 
 // Serve game page
-router.get('/:userId/:inlineMessageId', async ctx => { await ctx.render('game.pug') })
+router.get('/:userId/:inlineMessageId', async ctx => { await ctx.render('game') })
 
 // Fetch highscore
 router.get('/:userId/:inlineMessageId/score', async ctx => {
