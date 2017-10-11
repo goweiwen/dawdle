@@ -12,10 +12,6 @@ const PORT = process.env.PORT || 3000
 
 const bot = new TelegramBot(TOKEN, { polling: true })
 
-bot.onText(/\/start/, msg => bot.sendGame(msg.chat.id, GAME_NAME))
-
-bot.on('message', msg => console.log(`@${msg.from.username}: ${msg.text}`))
-
 bot.on('inline_query', inlineQuery =>
   bot.answerInlineQuery(inlineQuery.id, [{
     type: 'game',

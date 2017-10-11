@@ -49,14 +49,6 @@ var PORT = process.env.PORT || 3000;
 
 var bot = new _nodeTelegramBotApi2.default(TOKEN, { polling: true });
 
-bot.onText(/\/start/, function (msg) {
-  return bot.sendGame(msg.chat.id, GAME_NAME);
-});
-
-bot.on('message', function (msg) {
-  return console.log('@' + msg.from.username + ': ' + msg.text);
-});
-
 bot.on('inline_query', function (inlineQuery) {
   return bot.answerInlineQuery(inlineQuery.id, [{
     type: 'game',
