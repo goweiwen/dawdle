@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Dawdle
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="viewport" content="width=device-width,initial-scale=1")
+    meta(name="description" content="An idle game.")
+    meta(name="keywords" content="telegram,game")
+
+  body
+    h3 Dawdle
+    h1#score
+    script.
+      var score = 0
+      fetch(window.location.href + '/score')
+        .then(function(res) { return res.text() })
+        .then(function(text) {
+          score = text
+          setInterval(function() {
+            score++
+            document.getElementById('score').innerHTML = score
+            fetch(window.location.href, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ score: score })
+            });
+          }, 1000);
+        })
+    script(src="https://telegram.org/js/games.js")
+    style.
+      body { font-family: Menlo, Consolas, monospace; background: #fafafa; color: #404040; }
+      #score { text-align: center; font-size: 20vw; }
